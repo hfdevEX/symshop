@@ -35,4 +35,19 @@ class ProduitController extends AbstractController
             'produits' => $produits
         ]);
     }
+
+    /**
+     * @Route("/produits/{id}", name="app_detail_produit", requirements={"id"="\d+"})
+     */
+    public function detail($id, ProduitRepository $produitRepo): Response
+    {   
+
+        //Autre possibilité (sans passer par l'injection de dépendance)
+
+        //$produit = $this->getDoctrine()->getRepository(Produit::class);
+      
+        return $this->render("produit/detail.html.twig", [
+            'produit' => $produitRepo->find($id)
+        ]);
+    }
 }
